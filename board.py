@@ -52,4 +52,13 @@ class Board:
         return tuple(pos for pos, chip in enumerate(self.board) if chip == self.EMPTY_CELL)
 
     def __str__(self):
-        return "---------\n| {} {} {} |\n| {} {} {} |\n| {} {} {} |\n---------".format(*self.board)
+        text = "-" * (self.size * 2 + 3) + "\n"
+
+        for i in range(self.size):
+            text += "| "
+            text += " ".join(self.board[i * self.size:i * self.size + self.size])
+            text += " |\n"
+
+        text += "-" * (self.size * 2 + 3)
+
+        return text
