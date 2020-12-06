@@ -16,6 +16,7 @@ class Game:
             self.board.check_state()
 
             if self.board.state:
+                print(self.board)
                 print(self.board.state)
                 break
 
