@@ -1,5 +1,5 @@
-from ai import User, AIEasy, AIMedium
-from app import Game
+from game.ai import User, AIEasy, AIMedium, AIHard
+from game.app import Game
 
 
 def start_game(first=None, second=None):
@@ -19,6 +19,8 @@ def get_player(name):
         return AIEasy()
     elif name == 'medium':
         return AIMedium()
+    elif name == 'hard':
+        return AIHard()
     else:
         return None
 
@@ -26,11 +28,13 @@ def get_player(name):
 def exec_command(command: str):
     args = command.split()
 
-    if args[0] == "exit":
-        raise SystemExit
-
     if args[0] == "start":
         start_game(*args[1:])
+    elif args[0] == "exit":
+        raise SystemExit
+    else:
+        raise TypeError
+
 
 
 def main():

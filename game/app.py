@@ -1,5 +1,5 @@
-from ai import Player
-from board import Board
+from .ai import Player
+from .board import Board
 
 
 class Game:

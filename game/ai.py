@@ -1,7 +1,7 @@
 from random import choice
 
-from board import Board
-from coordinates import Coordinate
+from .board import Board
+from .coordinates import Coordinate
 
 
 class Player:
