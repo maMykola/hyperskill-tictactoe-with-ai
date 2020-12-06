@@ -1,4 +1,4 @@
-from ai import User, AIEasy
+from ai import User, AIEasy, AIMedium
 from app import Game
 
 
@@ -17,6 +17,8 @@ def get_player(name):
         return User()
     elif name == 'easy':
         return AIEasy()
+    elif name == 'medium':
+        return AIMedium()
     else:
         return None
 

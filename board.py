@@ -30,6 +30,9 @@ class Board:
             yield tuple(map(lambda x: i * self.size + x, range(self.size)))  # rows
             yield tuple(map(lambda x: i + x * self.size, range(self.size)))  # cols
 
+    def take_chips(self, positions):
+        return tuple((pos, self.board[pos]) for pos in positions)
+
     def is_winning(self, cells):
         chips = [self.board[pos] for pos in cells]
         return chips.count(self.CHIP_X) == self.size or chips.count(self.CHIP_O) == self.size
@@ -46,7 +49,10 @@ class Board:
         self.turn_chip()
 
     def turn_chip(self):
-        self.chip = self.CHIP_X if self.chip == self.CHIP_O else self.CHIP_O
+        self.chip = self.opponent_chip()
+
+    def opponent_chip(self):
+        return self.CHIP_X if self.chip == self.CHIP_O else self.CHIP_O
 
     def empty_cells(self):
         return tuple(pos for pos, chip in enumerate(self.board) if chip == self.EMPTY_CELL)
