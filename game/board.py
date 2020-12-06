@@ -12,6 +12,7 @@ class Board:
 
     def check_state(self):
         self.state = self.check_wins() or self.check_draw()
+        return self.state
 
     def check_wins(self):
         for cells in self.winning_cells():
@@ -47,6 +48,9 @@ class Board:
     def place_in_pos(self, pos):
         self.board[pos] = self.chip
         self.turn_chip()
+
+    def clear_in_pos(self, pos):
+        self.board[pos] = self.EMPTY_CELL
 
     def turn_chip(self):
         self.chip = self.opponent_chip()

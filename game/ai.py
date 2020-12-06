@@ -1,3 +1,4 @@
+from copy import deepcopy
 from random import choice
 
 from .board import Board
@@ -82,5 +83,42 @@ class AIMedium(AI):
 
 
 class AIHard(AI):
+    SCORE_WIN = 10
+    SCORE_DRAW = 0
+    SCORE_LOSE = -10
+
     def __init__(self):
         super().__init__(level="hard")
+
+    def take_move(self):
+        return self.minimax(deepcopy(self.board))[0]
+
+    def minimax(self, board: Board):
+        empty_cells = board.empty_cells()
+
+        for pos in empty_cells:
+            board.place_in_pos(pos)
+            if board.check_state():
+                return pos, self.minimax_score(board)
+
+            board.place_in_pos(pos)
+            if board.check_state():
+                return pos, -self.minimax_score(board)
+
+            board.clear_in_pos(pos)
+
+        scores = dict()
+        for pos in empty_cells:
+            new_board = deepcopy(board)
+            new_board.place_in_pos(pos)
+            scores[pos] = self.minimax(new_board)[1]
+
+        return max(scores.items(), key=lambda x: x[1])
+
+    def minimax_score(self, board: Board):
+        if board.state[0] == self.board.chip:
+            return self.SCORE_WIN
+        elif board.state[0] == self.board.opponent_chip():
+            return self.SCORE_LOSE
+        else:
+            return self.SCORE_DRAW
